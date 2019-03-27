@@ -117,7 +117,7 @@ class AgentSkeleton:
         return world.centrality_dict[self]       
     
 
-class GetBasedonDegree_v1(AgentSkeleton):
+class GetBasedonDegree_V1(AgentSkeleton):
     def predict(self, world):
         centrality_dict = nx.degree_centrality(world.G)
         if sum(centrality_dict.values()) > 0:
@@ -126,7 +126,7 @@ class GetBasedonDegree_v1(AgentSkeleton):
             return dict(zip(list(world.G.nodes), [random.random() for i in world.G.nodes]))
 
 
-class GetBasedonDegree_v2(AgentSkeleton):
+class GetBasedonDegree_V2(AgentSkeleton):
     def predict(self, world):
         centrality_dict = nx.degree_centrality(world.G)
         if sum(centrality_dict.values()) > 0:
@@ -148,9 +148,9 @@ class GetBasedonDegree_V3(AgentSkeleton):
             return dict(zip(list(world.G.nodes), [random.random() for i in world.G.nodes]))
 
 
-class RegressorAgent(GetBasedonDegree_v1):
+class RegressorAgent(GetBasedonDegree_V1):
     def __init__(self, regressor, name=None):
-        GetBasedonDegree_v1.__init__(self, name=name)
+        GetBasedonDegree_V1.__init__(self, name=name)
         self.regressor = regressor
         self.scaler = StandardScaler()
         self.colnames = ['DEGREE_CENTRALITY', 
@@ -206,7 +206,7 @@ class RegressorAgent(GetBasedonDegree_v1):
             result = dict(zip(input_df.index, pred))
             return result
         else:
-            return GetBasedonDegree_v1.predict(self, world)
+            return GetBasedonDegree_V1.predict(self, world)
 
 
 class GreedyRegressorAgent(RegressorAgent):
